@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<title>Home</title>
 	<meta charset="UTF-8">
@@ -143,44 +144,38 @@
 			<!-- Gallery -->
 			<div class="wrap-gallery-sidebar ">
 				<ul>
-					<li>
+					<li sec:authorize="isAnonymous()">
 						<a href="/login" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-							Sign In
+								Sign In
 						</a>
 					</li>
-					<li class="t-center m-b-13 m-t-20">
+					<li sec:authorize="isAuthenticated()">
+						<a class="bo4 btn1 flex-c-m size13 txt13 trans-0-4 m-l-r-auto" sec:authentication="principal.username"></a>
+
+					</li>
+					<li sec:authorize="hasAnyRole('CUSTOMER','STAFF','ADMIN')" class="t-center m-b-13 m-t-20">
 						<a href="#" class=" txt19  m-l-r-auto">
 							Account manager
 						</a>
 					</li>
-					<li class="t-center m-b-13 m-t-20">
+					<li sec:authorize="hasAnyRole('CUSTOMER','ADMIN')" class="t-center m-b-13 m-t-20">
 						<a href="#" class="txt19 m-l-r-auto">
 							History Transactions
 						</a>
 					</li>
-					<li class="t-center m-b-13 m-t-20">
+					<li sec:authorize="hasRole('CUSTOMER')" class="t-center m-b-13 m-t-20">
 						<a href="#" class="txt19 m-l-r-auto">
 							Join Us
 						</a>
 					</li>
-					<li>
-						<a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-							Log out
-						</a>
+					<li sec:authorize="isAuthenticated()" >
+						<div sec:authorize="isAuthenticated()">
+							<a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+								Log out
+							</a>
+						</div>
 					</li>
 				</ul>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!--				<a class="item-gallery-sidebar wrap-pic-w" href="/images/photo-gallery-11.jpg" data-lightbox="gallery-footer">-->
 <!--					<img src="/images/photo-gallery-thumb-11.jpg" alt="GALLERY">-->
