@@ -9,7 +9,7 @@
 
 <section class="section-booking bg1-pattern p-t-100 p-b-110">
     <div class="container">
-        <div class="row" th:object="${newUser}">
+        <div class="row" th:object="${editUser}">
             <div class="col-lg-6 p-b-30" >
                 <div class="t-center">
 						<span class="tit2 t-center">
@@ -17,15 +17,16 @@
 						</span>
 
                     <h3 class="tit3 t-center m-b-35 m-t-2">
-                        User Register
+                        User info update
                     </h3>
                 </div>
 
-                <form class="wrap-form-booking"   method="post" enctype="multipart/form-data">
+                <form class="wrap-form-booking" th:action="@{/user/edit/__${editUser.id}__}"  method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
                             <!-- First Name -->
                             <span class="txt9">First Name</span>
+                            <input hidden th:field="*{id}" th:value="*{id}">
                             <div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
                                 <input th:field="*{firstName}" class="bo-rad-10 sizefull txt10 p-l-20" type="text"  th:value="*{firstName}" placeholder="First Name">
                             </div>
@@ -42,21 +43,6 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <!-- User Name -->
-                            <span class="txt9">UserName</span>
-
-                            <div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <input th:field="*{userName}" class="bo-rad-10 sizefull txt10 p-l-20" type="text"  th:value="*{userName}" placeholder="Account"/>
-                            </div>
-
-                            <!-- Password -->
-                            <span class="txt9">
-									Password
-                            </span>
-
-                            <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <input th:field="*{password}" class="bo-rad-10 sizefull txt10 p-l-20" type="password" >
-                            </div>
 
                             <!-- Avatar -->
                             <span class="txt9">
@@ -74,7 +60,7 @@
                     <div class="wrap-btn-booking flex-c-m m-t-6">
                         <!-- Button3 -->
                         <button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-                            Register
+                            Update
                         </button>
                     </div>
                 </form>
@@ -89,11 +75,6 @@
                     <th:block th:if="${mess}">
                         <div class="fs-25 t-center" style="color: green" th:text="${mess}"></div>
                     </th:block>
-                    <div style="color: red">
-                        <div class="t-center" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</div>
-                        <div class="t-center" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
-                        <div class="t-center" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
-                    </div>
                 </div>
             </div>
         </div>
