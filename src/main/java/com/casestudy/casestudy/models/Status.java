@@ -1,10 +1,13 @@
 package com.casestudy.casestudy.models;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "status")
+@Data
 public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,19 +18,5 @@ public class Status {
     public Status() {
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-    }
 }
