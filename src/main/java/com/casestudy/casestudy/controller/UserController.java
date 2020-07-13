@@ -13,10 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -90,6 +87,50 @@ public class UserController {
         users.setPassword(usersForm.getPassword());
         users.setAvatar(null);
         return users;
+    }
+
+    @GetMapping("edit/{id}")
+    public ModelAndView showEditForm(@PathVariable Long id){
+        Users editUser = userService.findOne(id);
+        ModelAndView mv = new ModelAndView("user/update");
+        mv.addObject("editUser",editUser);
+        return mv;
+    }
+
+    @PostMapping("edit/{id}")
+    public ModelAndView updateInfo(@ModelAttribute("editUser") UsersForm usersForm,
+                                   @PathVariable Long id){
+        ModelAndView mv = new ModelAndView("user/update");
+
+        Users editUser = updateUserInfo(usersForm, id);
+
+
+        MultipartFile multipartFile = usersForm.getAvatar();
+        if(!multipartFile.getOriginalFilename().equals("")) {
+            String filepath = env.getProperty("upload.path").toString();
+            String fileName = editUser.getUserName() + "-" + multipartFile.getOriginalFilename();
+            editUser.setAvatar(fileName);
+            try {
+                FileCopyUtils.copy(usersForm.getAvatar().getBytes(), new File(filepath + fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        userService.save(editUser);
+        mv.addObject("mess", "Update Success");
+        mv.addObject("newUser", usersForm);
+
+
+        return mv;
+    }
+
+    private Users updateUserInfo( UsersForm usersForm, Long id) {
+        Users editUser = userService.findOne(id);
+        editUser.setFirstName(usersForm.getFirstName());
+        editUser.setLastName(usersForm.getLastName());
+        editUser.setEmail(usersForm.getEmail());
+        return editUser;
     }
 
 }

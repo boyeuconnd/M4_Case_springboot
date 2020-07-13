@@ -8,13 +8,21 @@ import com.casestudy.casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
@@ -55,5 +63,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users findUsersByUserName(String username) {
         return userRepository.findUsersByUserName(username);
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users user = this.findUsersByUserName(username);
+        List<GrantedAuthority> rolelist = new ArrayList<>();
+        rolelist.add(new SimpleGrantedAuthority(user.getRole().getRole()));
+        return new User(user.getUserName(),user.getPassword(),rolelist);
     }
 }
