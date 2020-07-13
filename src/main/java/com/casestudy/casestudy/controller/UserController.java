@@ -55,7 +55,7 @@ public class UserController {
 
             //create direct file path to new avatar file
             MultipartFile multipartFile = usersForm.getAvatar();
-            String filepath = env.getProperty("file_upload").toString();
+            String filepath = env.getProperty("upload.path").toString();
             String fileName = newUser.getUserName() + "-" + multipartFile.getOriginalFilename();
 
 
