@@ -2,7 +2,6 @@ package com.casestudy.casestudy.controller.blogs;
 
 
 
-import com.casestudy.casestudy.models.Users;
 import com.casestudy.casestudy.models.blogs.Category;
 import com.casestudy.casestudy.models.blogs.Post;
 import com.casestudy.casestudy.service.UserService;
@@ -21,7 +20,7 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("blog")
 public class PostController {
 
     @Autowired
@@ -30,13 +29,6 @@ public class PostController {
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private UserService userService;
-
-    @ModelAttribute("users")
-    public Iterable<Users> users(){
-        return userService.findAll();
-    }
 
     @ModelAttribute("categories")
     public Iterable<Category> categories(){
@@ -60,27 +52,22 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ModelAndView findById(@PathVariable("id") Long id){
         ModelAndView modelAndView = new ModelAndView("/blogs/blog-detail");
         modelAndView.addObject("blog", postService.findById(id));
         return modelAndView;
     }
 
-    @GetMapping("/create")
+    @GetMapping("create")
     public ModelAndView showCreationForm(){
         ModelAndView modelAndView = new ModelAndView("/blogs/create");
         modelAndView.addObject("post", new Post());
         return modelAndView;
     }
 
-    @PostMapping("/create")
-    public ModelAndView savePost(@ModelAttribute("post") Post post){
-
-
-
-
-
+    @PostMapping("create")
+    public ModelAndView savePost(@ModelAttribute Post post){
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/blogs/create");
         modelAndView.addObject("post", new Post());
@@ -88,7 +75,7 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("/blog/{id}/edit")
+    @GetMapping("{id}/edit")
     public ModelAndView edit(@PathVariable Long id){
         Post post = postService.findById(id);
         if(post != null){
@@ -101,7 +88,7 @@ public class PostController {
         }
     }
 
-    @PostMapping("/blog/edit")
+    @PostMapping("{id}/edit")
     public ModelAndView edit(@ModelAttribute("post")Post post){
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/blog/edit");
@@ -110,14 +97,14 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("/blog/{id}/delete")
+    @GetMapping("blog/{id}/delete")
     public ModelAndView getdelete(@ModelAttribute("post")Post post,Long id){
         ModelAndView mv = new ModelAndView("/blog/delete");
         mv.addObject("post",post);
         return mv;
     }
 
-    @PostMapping("/blog/delete")
+    @PostMapping("blog/delete")
     public ModelAndView delete(@ModelAttribute("post")Post post,Long id){
         postService.findById(id);
 

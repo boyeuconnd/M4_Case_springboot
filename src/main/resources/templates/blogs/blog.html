@@ -16,7 +16,7 @@
 
 
 	<!-- Title Page -->
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(../../../resources/images/bg-title-page-06.jpg);">
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(/images/bg-title-page-06.jpg);">
 		<h2 class="tit6 t-center">
 			Blog
 		</h2>
@@ -47,7 +47,7 @@
 						<div class="blo4 p-b-63" th:each=" blog : ${blogs}">
 							<div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
 								<a th:href="@{/blog/__${blog.id}__}">
-									<img src="/resources/images/bg-title-page-05.jpg" alt="IMG-BLOG">
+									<img src="/images/bg-title-page-05.jpg" alt="IMG-BLOG">
 								</a>
 								<div class="date-blo4 flex-col-c-m">
 									<span class="txt30 m-b-4" th:text="${blog.date_create.getDate()}">
