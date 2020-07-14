@@ -2,10 +2,13 @@ package com.casestudy.casestudy.controller.blogs;
 
 
 
+import com.casestudy.casestudy.models.Users;
 import com.casestudy.casestudy.models.blogs.Category;
+import com.casestudy.casestudy.models.blogs.Comment;
 import com.casestudy.casestudy.models.blogs.Post;
 import com.casestudy.casestudy.service.UserService;
 import com.casestudy.casestudy.service.blogs.CategoryService;
+import com.casestudy.casestudy.service.blogs.CommentService;
 import com.casestudy.casestudy.service.blogs.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Optional;
 
@@ -29,6 +33,11 @@ public class PostController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     @ModelAttribute("categories")
     public Iterable<Category> categories(){
@@ -54,8 +63,11 @@ public class PostController {
 
     @GetMapping("{id}")
     public ModelAndView findById(@PathVariable("id") Long id){
+        Post post = postService.findById(id);
+        Iterable<Comment> comments = commentService.findAllByPost(post);
         ModelAndView modelAndView = new ModelAndView("/blogs/blog-detail");
-        modelAndView.addObject("blog", postService.findById(id));
+        modelAndView.addObject("blog", post);
+        modelAndView.addObject("comment",comments);
         return modelAndView;
     }
 
@@ -67,7 +79,9 @@ public class PostController {
     }
 
     @PostMapping("create")
-    public ModelAndView savePost(@ModelAttribute Post post){
+    public ModelAndView savePost(@ModelAttribute Post post, Principal principal){
+        Users currentUser = userService.findUsersByUserName(principal.getName());
+        post.setUsers(currentUser);
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/blogs/create");
         modelAndView.addObject("post", new Post());
@@ -75,31 +89,31 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("{id}/edit")
+    @GetMapping("{id}/update")
     public ModelAndView edit(@PathVariable Long id){
         Post post = postService.findById(id);
         if(post != null){
-            ModelAndView modelAndView = new ModelAndView("/blog/edit");
+            ModelAndView modelAndView = new ModelAndView("/blogs/update");
             modelAndView.addObject("post",post);
             return modelAndView;
         }else {
-            ModelAndView modelAndView = new ModelAndView("/404");
+            ModelAndView modelAndView = new ModelAndView("blogs/404");
             return modelAndView;
         }
     }
 
-    @PostMapping("{id}/edit")
-    public ModelAndView edit(@ModelAttribute("post")Post post){
+    @PostMapping("{id}/update")
+    public ModelAndView edit(@ModelAttribute Post post){
         postService.save(post);
-        ModelAndView modelAndView = new ModelAndView("/blog/edit");
-        modelAndView.addObject("post",post);
+        ModelAndView modelAndView = new ModelAndView("/blogs/update");
+        modelAndView.addObject("post",new Post());
         modelAndView.addObject("message","Update post successfully");
         return modelAndView;
     }
 
     @GetMapping("blog/{id}/delete")
     public ModelAndView getdelete(@ModelAttribute("post")Post post,Long id){
-        ModelAndView mv = new ModelAndView("/blog/delete");
+        ModelAndView mv = new ModelAndView("/blogs/delete");
         mv.addObject("post",post);
         return mv;
     }
@@ -108,7 +122,7 @@ public class PostController {
     public ModelAndView delete(@ModelAttribute("post")Post post,Long id){
         postService.findById(id);
 
-        ModelAndView mv = new ModelAndView("/blog/delete");
+        ModelAndView mv = new ModelAndView("/blogs/delete");
         mv.addObject("mess","Delete posst successfully");
         postService.delete(id);
         return mv;

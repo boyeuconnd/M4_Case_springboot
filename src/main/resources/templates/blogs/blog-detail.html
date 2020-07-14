@@ -38,8 +38,7 @@
 
 				<span class="txt29 m-l-10 m-r-10">/</span>
 
-				<span class="txt29">
-					Cooking recipe delicious
+				<span class="txt29" th:text="${blog.title}">
 				</span>
 			</div>
 		</div>
@@ -48,6 +47,10 @@
 			<div class="row ">
 				<div class="col-md-8 col-lg-9">
 					<div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+
+						<a th:href="@{/blog/__${blog.id}__/update}" class="btn3 flex-c-m size13 txt11 trans-0-4 m-t-20 m-b-20">
+							Chỉnh Sửa
+						</a>
 						<!-- Block4 -->
 						<div class="blo4 p-b-63">
 							<div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
@@ -93,36 +96,27 @@
 						</div>
 
 						<!-- Leave a comment -->
-						<form class="leave-comment p-t-10">
-							<h4 class="txt33 p-b-14">
-								Leave a Comment
-							</h4>
+<!--						<form class="leave-comment p-t-10" th:object="${comment}" th:action="@{/comment}">-->
+<!--							<h4 class="txt33 p-b-14">-->
+<!--								Leave a Comment-->
+<!--							</h4>-->
 
-							<p>
-								Your email address will not be published. Required fields are marked *
-							</p>
+<!--							<input th:field="*{content}"  class="bo-rad-10 sizefull txt10 p-l-20" type="text"  placeholder="Comment...">-->
 
-							<textarea class="bo-rad-10 size29 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-40" name="commentent" placeholder="Comment..."></textarea>
-
-							<div class="size30 bo2 bo-rad-10 m-t-3 m-b-20">
-								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="Name *">
-							</div>
-
-							<div class="size30 bo2 bo-rad-10 m-t-3 m-b-20">
-								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="Email *">
-							</div>
-
-							<div class="size30 bo2 bo-rad-10 m-t-3 m-b-30">
-								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="website" placeholder="Website">
-							</div>
-
-							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size31 txt11 trans-0-4">
-								Post Comment
-							</button>
-						</form>
+<!--							<button type="submit" class="btn3 flex-c-m size31 txt11 trans-0-4">-->
+<!--								Post Comment-->
+<!--							</button>-->
+<!--						</form>-->
+						<h3>Bình luận</h3>
+						<div class="text-blo4 p-t-33" th:each="${comment}">
+							<span th:text="${comment.users}">
+							</span>
+							<span th:text="${comment.content}">
+							</span>
+						</div>
 					</div>
 				</div>
+
 
 				<div class="col-md-4 col-lg-3">
 					<div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">

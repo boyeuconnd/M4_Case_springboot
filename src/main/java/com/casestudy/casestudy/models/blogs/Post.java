@@ -31,4 +31,7 @@ public class Post {
 
     @ManyToOne
     private Category category;
+
+//    @OneToMany
+//    private  List<Comment> comment;
 }
