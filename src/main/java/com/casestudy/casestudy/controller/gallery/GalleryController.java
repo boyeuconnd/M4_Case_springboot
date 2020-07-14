@@ -1,5 +1,6 @@
 package com.casestudy.casestudy.controller.gallery;
 
+
 import com.casestudy.casestudy.models.gallery.Gallery;
 import com.casestudy.casestudy.service.gallery.Category_Gallery_Service;
 import com.casestudy.casestudy.service.gallery.GalleryService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 @RequestMapping("gallery")
@@ -20,8 +22,11 @@ public class GalleryController {
     GalleryService galleryService;
 
     @GetMapping("")
-    public String getGalery(){
-        return "/gallery/gallery";
+    public ModelAndView getGalery(){
+        Iterable<Gallery> galleries = galleryService.findAll();
+        ModelAndView mv = new ModelAndView("gallery/gallery");
+        mv.addObject("imgs",galleries);
+        return mv;
     }
 
 //    @GetMapping("")
