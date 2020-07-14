@@ -9,69 +9,106 @@
     <!-- Detail Zone-->
     <section class="bg1-pattern p-t-120 p-b-105">
         <div class="container">
-            <!-- Delicious -->
-            <div class="row" th:object="${userStaff}" >
-                <div class="col-md-6 p-t-45 p-b-30">
-                    <div class="wrap-text-delicious t-center">
+            <form th:action="@{/purchase/__${userStaff.id}__}" method="post">
+                <div class="row" th:object="${userStaff}" >
+
+                    <div class="col-md-6 p-t-45 p-b-30">
+                        <div class="wrap-text-delicious t-center">
 						<span class="tit2 t-center">
 							Staff Detail
 						</span>
 
-                        <h3 class="tit3 t-center m-b-35 m-t-5" th:text="*{rank.ranks}">
-                        </h3>
-                        <div class="txt12 p-b-10" th:text="'Nick Name: '+*{nickName}"></div>
-                        <div class="txt12 p-b-10" th:text="'Status: '+*{status.statusName}"></div>
-                        <div class="txt12 p-b-10" th:text="'Price: $'+*{price}"></div>
-                        <div>
-                            <button type="submit" class="btn3 size13 txt11 trans-0-4 m-t-30">
-                                Rước Em Về
-                            </button>
+                            <h3 class="tit3 t-center m-b-35 m-t-5" th:text="*{rank.ranks}">
+                            </h3>
+                            <div class="txt12 p-b-10" th:text="'Nick Name: '+*{nickName}"></div>
+                            <div class="txt12 p-b-10" th:text="'Status: '+*{status.statusName}"></div>
+                            <div class="txt12 p-b-10" th:text="'Price: $'+*{price}"></div>
+                            <div class="txt13 p-b-10">
+                                <button th:if="*{status.statusName=='Free'}" type="button" data-toggle="modal" data-target="#exampleModal" class="btn3 size13 txt11 trans-0-4 m-t-30">
+                                    Rước Em Về
+                                </button>
+                                <button th:if="*{status.statusName=='Busy'}" disabled  class="btn3 size13 txt11 trans-0-4 m-t-30" href="#" >
+                                    Em bận rồi
+                                </button>
+                                <button th:if="*{status.statusName=='Not Available'}" disabled  class="btn3 size13 txt11 trans-0-4 m-t-30" href="#" >
+                                    Em đi vắng rồi
+                                </button>
+                            </div>
+                            <div class="txt13">
+                                <a href="/staff" class="txt4">
+                                    Back to menu
+                                    <i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
+                                </a>
+                            </div>
+
                         </div>
+                    </div>
 
-
-<!--                        <p class="t-center m-b-22 size3 m-l-r-auto">-->
-<!--                            Đến với vườn địa đàng để tận hưởng vị tươi ngon của hoa quả bốn mùa.-->
-<!--                            Nơi giao thoa giữa tiên cảnh và trần gian, giải tỏa stress, gội rửa bụi trần,-->
-<!--                            chuẩn bị cho mình một tâm hồn đẹp!-->
-<!--                        </p>-->
+                    <div class="col-md-6 p-b-30">
+                        <div class="wrap-pic-delicious size2 bo-rad-10 hov-img-zoom m-l-r-auto">
+                            <img th:src="'/'+*{avatar}" alt="IMG-OUR">
+                        </div>
                     </div>
                 </div>
+            </form>
 
-                <div class="col-md-6 p-b-30">
-                    <div class="wrap-pic-delicious size2 bo-rad-10 hov-img-zoom m-l-r-auto">
-                        <img th:src="'/img/'+*{avatar}" alt="IMG-OUR">
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Romantic -->
-<!--            <div class="row p-t-170">-->
-<!--                <div class="col-md-6 p-b-30">-->
-<!--                    <div class="wrap-pic-romantic size2 bo-rad-10 hov-img-zoom m-l-r-auto">-->
-<!--                        <img src="../../resources/images/our-story-02.jpg" alt="IMG-OUR">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="col-md-6 p-t-45 p-b-30">-->
-<!--                    <div class="wrap-text-romantic t-center">-->
-<!--						<span class="tit2 t-center">-->
-<!--							Romantic-->
-<!--						</span>-->
-
-<!--                        <h3 class="tit3 t-center m-b-35 m-t-5">-->
-<!--                            Place-->
-<!--                        </h3>-->
-
-<!--                        <p class="t-center m-b-22 size3 m-l-r-auto">-->
-<!--                            Với phong cách hiện đại mà cổ kính, chúng tôi sẽ mang đến cho bạn không gian lãng mạn,-->
-<!--                            để bạn tận hưởng những khoảnh khắc bên tri kỉ của mình. Vì sống là để trải nghiệm...-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chọn phương thức thanh toán!</h5>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="paymentCont">
+                            <div class="headingWrap">
+                                <h3 class="headingTop text-center">Select Your Payment Method</h3>
+<!--                                <p class="text-center">Created with bootsrap button and using radio button</p>-->
+                            </div>
+                            <div class="paymentWrap">
+                                <div class="btn-group paymentBtnGroup btn-group-justified" data-toggle="buttons">
+                                    <label class="btn paymentMethod active">
+                                        <div class="method visa"></div>
+                                        <input type="radio" name="options" checked>
+                                    </label>
+                                    <label class="btn paymentMethod">
+                                        <div class="method master-card"></div>
+                                        <input type="radio" name="options">
+                                    </label>
+                                    <label class="btn paymentMethod">
+                                        <div class="method amex"></div>
+                                        <input type="radio" name="options">
+                                    </label>
+                                    <label class="btn paymentMethod">
+                                        <div class="method vishwa"></div>
+                                        <input type="radio" name="options">
+                                    </label>
+                                    <label class="btn paymentMethod">
+                                        <div class="method ez-cash"></div>
+                                        <input type="radio" name="options">
+                                    </label>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form th:action="@{/payment/__${userStaff.id}__}" method="post">
+                        <button type="submit" class="btn btn-primary">Check Out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <footer th:replace="/layout :: footer"></footer>
