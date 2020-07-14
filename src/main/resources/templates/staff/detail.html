@@ -23,7 +23,8 @@
                             </h3>
                             <div class="txt12 p-b-10" th:text="'Nick Name: '+*{nickName}"></div>
                             <div class="txt12 p-b-10" th:text="'Status: '+*{status.statusName}"></div>
-                            <div class="txt12 p-b-10" th:text="'Price: $'+*{price}"></div>
+                            <div  class="txt12 p-b-10" th:text="'Price: $'+*{price}"></div>
+                            <input id="staffPrice" hidden type="number" th:value="*{price}">
                             <div class="txt13 p-b-10">
                                 <button th:if="*{status.statusName=='Free'}" type="button" data-toggle="modal" data-target="#exampleModal" class="btn3 size13 txt11 trans-0-4 m-t-30">
                                     Rước Em Về
@@ -60,56 +61,76 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Chọn phương thức thanh toán!</h5>
+                <form th:action="@{/payment/__${userStaff.id}__}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Chọn phương thức thanh toán!</h5>
 
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="paymentCont">
-                            <div class="headingWrap">
-                                <h3 class="headingTop text-center">Select Your Payment Method</h3>
-<!--                                <p class="text-center">Created with bootsrap button and using radio button</p>-->
-                            </div>
-                            <div class="paymentWrap">
-                                <div class="btn-group paymentBtnGroup btn-group-justified" data-toggle="buttons">
-                                    <label class="btn paymentMethod active">
-                                        <div class="method visa"></div>
-                                        <input type="radio" name="options" checked>
-                                    </label>
-                                    <label class="btn paymentMethod">
-                                        <div class="method master-card"></div>
-                                        <input type="radio" name="options">
-                                    </label>
-                                    <label class="btn paymentMethod">
-                                        <div class="method amex"></div>
-                                        <input type="radio" name="options">
-                                    </label>
-                                    <label class="btn paymentMethod">
-                                        <div class="method vishwa"></div>
-                                        <input type="radio" name="options">
-                                    </label>
-                                    <label class="btn paymentMethod">
-                                        <div class="method ez-cash"></div>
-                                        <input type="radio" name="options">
-                                    </label>
+                    </div>
+                    <div class="modal-body">
 
+                        <div class="row">
+
+                            <div class="paymentCont">
+                                <div class="headingWrap">
+                                    <h3 class="headingTop text-center">Select Your Payment Method</h3>
+                                    <!--                                <p class="text-center">Created with bootsrap button and using radio button</p>-->
                                 </div>
+                                <div class="timeSelect txt13 t-center p-t-20">
+                                    <p>Thời gian thuê(Giờ)</p>
+                                    <input style="width: 10%;background-color: aquamarine" class=" m-l-d-auto" id="duration" type="number" value="1">
+                                </div>
+                                <hr>
+                                <div class="totalPrice txt13 t-center p-t-20 justify-content-center" >
+                                    <span class="txt4" id="result">$ 0</span> <button style="border: 1px solid black" type="button" onclick="reload()"><i class="fas fa-sync-alt"></i>Reload</button>
+                                </div>
+                                <hr>
+                                <div class="paymentWrap">
+                                    <div class="btn-group paymentBtnGroup btn-group-justified" data-toggle="buttons">
+                                        <label class="btn paymentMethod active">
+                                            <div class="method visa"></div>
+                                            <input type="radio" name="paymentType" checked>
+                                        </label>
+                                        <label class="btn paymentMethod">
+                                            <div class="method master-card"></div>
+                                            <input type="radio" name="paymentType">
+                                        </label>
+                                        <label class="btn paymentMethod">
+                                            <div class="method amex"></div>
+                                            <input type="radio" name="paymentType">
+                                        </label>
+                                        <label class="btn paymentMethod">
+                                            <div class="method vishwa"></div>
+                                            <input type="radio" name="paymentType">
+                                        </label>
+                                        <label class="btn paymentMethod">
+                                            <div class="method ez-cash"></div>
+                                            <input type="radio" name="paymentType">
+                                        </label>
+
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
-
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <form th:action="@{/payment/__${userStaff.id}__}" method="post">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Check Out</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
+    <script>
+        function reload() {
+            let staffPrice = document.getElementById("staffPrice").value
+            let duration = document.getElementById("duration").value
+            let totalPrice = staffPrice*duration;
+            document.getElementById("result").innerHTML = "$ "+totalPrice;
+        }
+    </script>
 
 
     <footer th:replace="/layout :: footer"></footer>
