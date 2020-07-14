@@ -108,13 +108,13 @@
 <!--								Post Comment-->
 <!--							</button>-->
 <!--						</form>-->
-						<h3>Bình luận</h3>
-						<div class="text-blo4 p-t-33" th:each="${comment}">
-							<span th:text="${comment.users}">
-							</span>
-							<span th:text="${comment.content}">
-							</span>
-						</div>
+<!--						<h3>Bình luận</h3>-->
+<!--						<div class="text-blo4 p-t-33" th:each="${comment}">-->
+<!--							<span th:text="${comment.users}">-->
+<!--							</span>-->
+<!--							<span th:text="${comment.content}">-->
+<!--							</span>-->
+<!--						</div>-->
 					</div>
 				</div>
 
@@ -122,12 +122,13 @@
 				<div class="col-md-4 col-lg-3">
 					<div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
 						<!-- Search -->
-						<div class="search-sidebar2 size12 bo2 pos-relative">
+						<div class="search-sidebar2 size12 bo2 pos-relative" style="height: 39px">
 							<form th:action="@{/blog}" method="get">
-								<input class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="s" placeholder="Search by title">
-								<button class="btn-search-sidebar2 flex-c-m ti-search trans-0-4"></button>
+								<input style="height: 35px" class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="s" placeholder="Search by title">
+								<button style="width: 35px ; height: 35px" class="btn-search-sidebar2 flex-c-m ti-search trans-0-4"></button>
 							</form>
 						</div>
+
 
 						<!-- Categories -->
 						<div class="categories">
