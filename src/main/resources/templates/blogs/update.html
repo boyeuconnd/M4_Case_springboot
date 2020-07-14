@@ -75,7 +75,7 @@
 									Chủ đề
                             </span>
                             <div class="form-group">
-                                <select th:field="*{categoryGallery}">
+                                <select th:field="*{category}">
                                     <option th:each=" c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
                                 </select>
                             </div>
