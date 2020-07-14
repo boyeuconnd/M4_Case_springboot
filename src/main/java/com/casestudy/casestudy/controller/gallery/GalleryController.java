@@ -19,12 +19,16 @@ public class GalleryController {
     @Autowired
     GalleryService galleryService;
 
-
     @GetMapping("")
-    public ModelAndView getIndex(){
-        Iterable<Gallery> galleries = galleryService.findAll();
-        ModelAndView modelAndView = new ModelAndView("/gallery/gallegy");
-        modelAndView.addObject("galleries",galleries);
-        return modelAndView;
+    public String getGalery(){
+        return "/gallery/gallery";
     }
+
+//    @GetMapping("")
+//    public ModelAndView getIndex(){
+////        Iterable<Gallery> galleries = galleryService.findAll();
+////        ModelAndView modelAndView = new ModelAndView("/gallery/gallegy");
+////        modelAndView.addObject("galleries",galleries);
+//        return modelAndView;
+//    }
 }

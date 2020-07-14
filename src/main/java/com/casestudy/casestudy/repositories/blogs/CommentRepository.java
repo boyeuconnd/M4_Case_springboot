@@ -4,5 +4,5 @@ import com.casestudy.casestudy.models.blogs.Post;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CommentRepository extends CrudRepository<Comment,Long> {
-    Iterable<Comment> findCommentsByPost(Post post);
+    Iterable<Comment> findAllByPost(Long id);
 }

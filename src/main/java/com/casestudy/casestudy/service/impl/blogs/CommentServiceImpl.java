@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Iterable<Comment> findAllByPost(Post post) {
-        return commentRepository.findCommentsByPost(post);
+    public Iterable<Comment> findAllByPost(Long id) {
+        return commentRepository.findAllByPost(id);
     }
 }

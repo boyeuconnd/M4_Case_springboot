@@ -16,5 +16,5 @@ public interface CommentService {
 
     void delete(Long id);
 
-    Iterable<Comment> findAllByPost(Post post);
+    Iterable<Comment> findAllByPost(Long id);
 }

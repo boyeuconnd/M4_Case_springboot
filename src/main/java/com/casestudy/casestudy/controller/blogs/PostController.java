@@ -64,7 +64,7 @@ public class PostController {
     @GetMapping("{id}")
     public ModelAndView findById(@PathVariable("id") Long id){
         Post post = postService.findById(id);
-        Iterable<Comment> comments = commentService.findAllByPost(post);
+        Iterable<Comment> comments = commentService.findAllByPost(id);
         ModelAndView modelAndView = new ModelAndView("/blogs/blog-detail");
         modelAndView.addObject("blog", post);
         modelAndView.addObject("comment",comments);

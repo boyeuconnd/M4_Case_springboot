@@ -96,25 +96,72 @@
 							</div>
 						</div>
 
-						<!-- Leave a comment -->
-<!--						<form class="leave-comment p-t-10" th:object="${comment}" th:action="@{/comment}">-->
-<!--							<h4 class="txt33 p-b-14">-->
-<!--								Leave a Comment-->
-<!--							</h4>-->
+						<div>
+							<textarea id="content"></textarea>
+							<button onclick="addComment()">Comment</button>
+						</div>
 
-<!--							<input th:field="*{content}"  class="bo-rad-10 sizefull txt10 p-l-20" type="text"  placeholder="Comment...">-->
+						<<script>
+						function addComment() {
+							let content = document.getElementById("content").value;
+							let id = document.getElementById("blogId").value;
 
-<!--							<button type="submit" class="btn3 flex-c-m size31 txt11 trans-0-4">-->
-<!--								Post Comment-->
-<!--							</button>-->
-<!--						</form>-->
-<!--						<h3>Bình luận</h3>-->
-<!--						<div class="text-blo4 p-t-33" th:each="${comment}">-->
-<!--							<span th:text="${comment.users}">-->
-<!--							</span>-->
-<!--							<span th:text="${comment.content}">-->
-<!--							</span>-->
-<!--						</div>-->
+							let comment = {
+								"content": content,
+								// "blog":{
+								//     id: id
+								// }
+							};
+							$.ajax({
+								headers: {
+									'Accept': 'application/json',
+									'Content-Type': 'application/json'
+								},
+								url: 'http://localhost:6969/api/blog/saveComment/' + id,
+								type: 'POST',
+								data: JSON.stringify(comment),
+								success: successHandler,
+								error: fail
+							});
+						}
+
+						function successHandler() {
+							let id = document.getElementById("blogId").value;
+							$.ajax({
+								url: 'http://localhost:6969/api/blog/getAllComment/' + id,
+								type: 'GET',
+
+								success: showCommentList,
+							});
+
+						}
+
+						function fail() {
+							aler("comment fail!!! try again");
+						}
+
+						function showCommentList(response) {
+							//show list comment here
+							let tableContent =`<thead>
+							<tr>
+								   <th>comment</th>
+							</tr>
+							</thead>
+							<tbody>`;
+							for (let i = 0; i < response.length; i++) {
+								tableContent += getCommentRow(response[i]);
+							}
+							tableContent += `</tbody>`;
+							document.getElementById('comments').innerHTML = tableContent;
+							document.getElementById('comments').innerHTML=" ";
+						}
+
+						function getCommentRow(comment) {
+							return `<tr>
+                   			 <td > ${comment.content}</td>
+               		 		</tr>`;
+						}
+						</script>
 					</div>
 				</div>
 
