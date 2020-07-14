@@ -15,8 +15,16 @@ public class StatusServiceImpl implements StatusService {
     @Autowired
     private StatusRepository statusRepository;
 
+
     @Override
     public Iterable<Status> showStatus() {
         return statusRepository.findAll();
     }
+
+    @Override
+    public Status findById(Long id) {
+        return statusRepository.findById(id).get();
+    }
+
+
 }

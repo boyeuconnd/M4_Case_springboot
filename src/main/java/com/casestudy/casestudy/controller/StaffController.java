@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("staff")
 public class StaffController {
@@ -41,28 +43,42 @@ public class StaffController {
         return statusService.showStatus() ;
     }
 
-//    @GetMapping("/register")
-//    public ModelAndView showPromoteForm(){
-//        ModelAndView mv = new ModelAndView("staff/create");
-//        mv.addObject("staff",new UsersForm());
-//        return mv;
-//    }
-//
-//    @PostMapping("/register")
-//    public ModelAndView becomeStaff(@ModelAttribute Users staff){
-//        ModelAndView mv = new ModelAndView("staff/create");
-//        Role staffRole = roleService.getRoleById(2L);
-//        staff.setRole(staffRole);
-//        if(userService.save(staff)!=null){
-//            mv.addObject("staff",new UsersForm());
-//            mv.addObject("mess","Register Success");
-//        }else {
-//            mv.addObject("staff",staff);
-//            mv.addObject("mess","Register Not Finish");
-//
-//        }
-//        return mv;
-//    }
+    @GetMapping("promote")
+    public ModelAndView showPromoteForm(Principal principal){
+        Users promoteUser = userService.findUsersByUserName(principal.getName());
+        ModelAndView mv = new ModelAndView("staff/promote");
+        mv.addObject("promoteUser",promoteUser);
+        return mv;
+    }
+
+    @PostMapping("promote")
+    public ModelAndView becomeStaff(@RequestParam("nickName") String nickName,
+                                    @RequestParam("price") Float price,
+                                    @RequestParam("rank")Long rank,
+                                    @RequestParam("status")Long status,
+                                    Principal principal){
+        ModelAndView mv = new ModelAndView("staff/promote");
+
+        Users staff = userService.findUsersByUserName(principal.getName());
+        staff.setNickName(nickName);
+        staff.setPrice(price);
+        staff.setRank(rankService.findById(rank));
+        staff.setStatus(statusService.findById(status));
+
+
+        Role staffRole = roleService.getRoleById(2L);
+        staff.setRole(staffRole);
+
+        if(userService.save(staff)!=null){
+            mv.addObject("staff",new Users());
+            mv.addObject("mess","Register Success");
+        }else {
+            mv.addObject("staff",staff);
+            mv.addObject("mess","Register Not Finish");
+
+        }
+        return mv;
+    }
 
     @GetMapping("")
     public ModelAndView showStaffList(Pageable pageable){

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="/layout :: head">
 
 </head>
@@ -21,15 +22,16 @@
                     </h3>
                 </div>
 
-                <form class="wrap-form-booking" th:object="${staff}" method="post">
+                <form class="wrap-form-booking" th:action="@{/staff/promote}"  method="post">
                     <div class="row">
                         <div class="col-md-6">
                             <!-- Full Name -->
                             <span class="txt9">
-									Full Name
+									User Name
 								</span>
-                            <div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <input th:field="*{fullName}" class="bo-rad-10 sizefull txt10 p-l-20" type="text"  th:value="*{fullName}" placeholder="Name">
+                            <div style="background-color: white" class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23 p-t-8">
+                                <a sec:authentication="principal.username" class="bo-rad-10 sizefull txt10 p-l-20" ></a>
+
                             </div>
 
                             <!-- Nick Name -->
@@ -37,31 +39,10 @@
 									Nick Name
 								</span>
                             <div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <input th:field="*{nickName}" class="bo-rad-10 sizefull txt10 p-l-20" type="text"  th:value="*{nickName}"/>
-                            </div>
-                            <!-- User Name -->
-                            <span class="txt9">
-									UserName
-                            </span>
-
-                            <div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <input th:field="*{username}" class="bo-rad-10 sizefull txt10 p-l-20" type="text"  th:value="*{fullName}" placeholder="Name"/>
+                                <input name="nickName" class="bo-rad-10 sizefull txt10 p-l-20" type="text"  placeholder="Nick name..."/>
                             </div>
 
-                            <!-- Password -->
-                            <span class="txt9">
-									Password
-                            </span>
 
-                            <div class="size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <input th:field="*{password}" class="bo-rad-10 sizefull txt10 p-l-20" type="password"  th:value="*{password}">
-                            </div>
-
-                            <!-- Email -->
-<!--                            <span class="txt9">Email</span>-->
-<!--                            <div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">-->
-<!--                                <input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="Email">-->
-<!--                            </div>-->
                         </div>
                         <div class="col-md-6">
                             <!-- Price -->
@@ -70,7 +51,7 @@
                             </span>
 
                             <div class=" pos-relative txt10 size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <input class=" bo-rad-10 sizefull txt10 p-l-20" type="number" th:field="*{price}" th:value="*{price}">
+                                <input class=" bo-rad-10 sizefull txt10 p-l-20" type="number" name="price" placeholder="Price...">
                             </div>
 
                             <!-- Rank -->
@@ -80,7 +61,7 @@
 
                             <div class="input-group size12 bo2 bo-rad-10 m-t-3 m-b-23">
 
-                                <select class="custom-select sizefull bo-rad-7"   th:field="*{rank}">
+                                <select class="custom-select sizefull bo-rad-7" name="rank"  >
                                     <option th:each="r:${allRanks}" th:value="${r.id}" th:text="${r.ranks}"></option>
 
                                 </select>
@@ -92,7 +73,7 @@
 								</span>
 
                             <div class="input-group size12 bo2 bo-rad-10 m-t-3 m-b-23">
-                                <select class="custom-select sizefull bo-rad-7" th:field="*{status}">
+                                <select class="custom-select sizefull bo-rad-7" name="status" >
                                     <option th:each="s:${allStatus}" th:value="${s.id}" th:text="${s.statusName}"></option>
 
                                 </select>
@@ -105,7 +86,7 @@
                     <div class="wrap-btn-booking flex-c-m m-t-6">
                         <!-- Button3 -->
                         <button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-                            Register
+                            Promote
                         </button>
                     </div>
                 </form>
@@ -113,12 +94,12 @@
 
             <div class="col-lg-6 p-b-30 p-t-18">
                 <div class="wrap-pic-booking size2 bo-rad-10 hov-img-zoom m-l-r-auto">
-                    <img src="../../../resources/images/booking-01.jpg" alt="IMG-OUR">
+                    <img src="/images/booking-01.jpg" alt="IMG-OUR">
 
                 </div>
                 <div class="m-l-r-auto m-t-12">
                     <th:block th:if="${mess}">
-                        <p class="size26 t-center" style="color: green" th:text="${mess}"></p>
+                        <div class="fs-25 t-center" style="color: green" th:text="${mess}"></div>
                     </th:block>
                 </div>
             </div>
