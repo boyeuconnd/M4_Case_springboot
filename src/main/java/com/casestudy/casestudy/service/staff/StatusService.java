@@ -6,4 +6,7 @@ import com.casestudy.casestudy.models.Status;
 public interface StatusService {
 
     Iterable<Status> showStatus();
+
+    Status findById(Long id);
+
 }

@@ -9,5 +9,7 @@ import java.util.List;
 public interface RankService {
     Iterable<Rank> showRanks();
 
+    Rank findById(Long id);
+
 
 }

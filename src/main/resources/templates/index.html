@@ -154,8 +154,8 @@
 
 					</li>
 					<li sec:authorize="hasAnyRole('CUSTOMER','STAFF','ADMIN')" class="t-center m-b-13 m-t-20">
-						<a href="#" class=" txt19  m-l-r-auto">
-							Account manager
+						<a th:href="@{user/edit}" class=" txt19  m-l-r-auto">
+							Account Info Manager
 						</a>
 					</li>
 					<li sec:authorize="hasAnyRole('CUSTOMER','ADMIN')" class="t-center m-b-13 m-t-20">
@@ -164,16 +164,14 @@
 						</a>
 					</li>
 					<li sec:authorize="hasRole('CUSTOMER')" class="t-center m-b-13 m-t-20">
-						<a href="#" class="txt19 m-l-r-auto">
+						<a href="/staff/promote" class="txt19 m-l-r-auto">
 							Join Us
 						</a>
 					</li>
 					<li sec:authorize="isAuthenticated()" >
-						<div sec:authorize="isAuthenticated()">
-							<a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+						<a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 								Log out
 							</a>
-						</div>
 					</li>
 				</ul>
 

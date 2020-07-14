@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("user")
@@ -89,9 +90,9 @@ public class UserController {
         return users;
     }
 
-    @GetMapping("edit/{id}")
-    public ModelAndView showEditForm(@PathVariable Long id){
-        Users editUser = userService.findOne(id);
+    @GetMapping("edit")
+    public ModelAndView showEditForm(Principal principal){
+        Users editUser = userService.findUsersByUserName(principal.getName());
         ModelAndView mv = new ModelAndView("user/update");
         mv.addObject("editUser",editUser);
         return mv;

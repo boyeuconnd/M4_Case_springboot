@@ -18,4 +18,9 @@ public class RankServiceImpl implements RankService {
     public Iterable<Rank> showRanks() {
         return rankRepository.findAll();
     }
+
+    @Override
+    public Rank findById(Long id) {
+        return rankRepository.findById(id).get();
+    }
 }
