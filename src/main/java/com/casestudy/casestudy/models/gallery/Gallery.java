@@ -13,7 +13,7 @@ public class Gallery {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String avatar;
+    private String imgUrl;
 
     @ManyToOne
     private Category_Gallery categoryGallery;

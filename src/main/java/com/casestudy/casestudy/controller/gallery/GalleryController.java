@@ -29,6 +29,9 @@ public class GalleryController {
         return mv;
     }
 
+
+
+
 //    @GetMapping("")
 //    public ModelAndView getIndex(){
 ////        Iterable<Gallery> galleries = galleryService.findAll();
