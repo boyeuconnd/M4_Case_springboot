@@ -7,6 +7,8 @@ import com.casestudy.casestudy.service.blogs.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -35,7 +37,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Iterable<Comment> findAllByPost(Long id) {
-        return commentRepository.findAllByPost(id);
+    public List<Comment> findAllByPost(Post post) {
+        return commentRepository.findCommentsByPost(post);
     }
+
+
 }

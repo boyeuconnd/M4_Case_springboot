@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -64,10 +65,10 @@ public class PostController {
     @GetMapping("{id}")
     public ModelAndView findById(@PathVariable("id") Long id){
         Post post = postService.findById(id);
-        Iterable<Comment> comments = commentService.findAllByPost(id);
+        Iterable<Comment> comments = commentService.findAllByPost(post);
         ModelAndView modelAndView = new ModelAndView("/blogs/blog-detail");
         modelAndView.addObject("blog", post);
-        modelAndView.addObject("comment",comments);
+        modelAndView.addObject("comments",comments);
         return modelAndView;
     }
 
