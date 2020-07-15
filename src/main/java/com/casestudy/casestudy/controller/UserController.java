@@ -58,9 +58,10 @@ public class UserController {
             //create direct file path to new avatar file
             MultipartFile multipartFile = usersForm.getAvatar();
             String filepath = env.getProperty("upload.path").toString();
-            String fileName = newUser.getUserName() + "-" + multipartFile.getOriginalFilename();
+            String fileName;
+            fileName = setDefaultAvatar_if_avt_is_null(newUser, multipartFile);
 
-
+            //set role User for new account
             mv = new ModelAndView("user/create");
             Role staffRole = roleService.getRoleById(3L);
 
@@ -82,6 +83,8 @@ public class UserController {
         }
         return mv;
     }
+
+
 
     private Users cloneFromUserformToUser(@ModelAttribute UsersForm usersForm) {
         Users users = new Users();
@@ -164,6 +167,16 @@ public class UserController {
         }else {
             return "redirect:/403";
         }
+    }
+
+    private String setDefaultAvatar_if_avt_is_null(Users newUser, MultipartFile multipartFile) {
+        String fileName;
+        if(!multipartFile.getOriginalFilename().equals("")){
+            fileName = newUser.getUserName() + "-" + multipartFile.getOriginalFilename();
+        }else {
+            fileName = "default-avatar.jpg";
+        }
+        return fileName;
     }
 
 }

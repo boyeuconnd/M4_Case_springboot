@@ -126,10 +126,10 @@
 				<a href="/contact" class="txt19">Contact</a>
 			</li>
 
-			<li class="t-center">
+			<li class="t-center" sec:authorize="isAnonymous()">
 				<!-- Button3 -->
-				<a href="/reservation" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
-					Reservation
+				<a href="/user/create" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+					Sign Up
 				</a>
 			</li>
 		</ul>
@@ -154,7 +154,7 @@
 
 					</li>
 					<li sec:authorize="hasAnyRole('CUSTOMER','STAFF','ADMIN')" class="t-center m-b-13 m-t-20">
-						<a th:href="@{user/edit}" class=" txt19  m-l-r-auto">
+						<a th:href="@{/user/edit}" class=" txt19  m-l-r-auto">
 							Account Info Manager
 						</a>
 					</li>
