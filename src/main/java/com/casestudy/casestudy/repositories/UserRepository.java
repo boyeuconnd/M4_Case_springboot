@@ -18,4 +18,6 @@ public interface UserRepository extends PagingAndSortingRepository<Users,Long> {
 
     Users findUsersByUserName(String username);
     Page<Users> findAllByUserNameContaining(String value,Pageable pageable);
+
+    Iterable<Users> findAllByRoleEqualsAndNickNameContaining(Role role,String nickname);
 }

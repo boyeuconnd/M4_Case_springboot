@@ -22,4 +22,6 @@ public interface UserService {
     Users findUsersByUserName(String username);
 
     Page<Users> findAllByUserNameContaining(String value,Pageable pageable);
+
+    Iterable<Users> findAllByRoleEqualsAndNickNameContaining(Role role,String nickname);
 }

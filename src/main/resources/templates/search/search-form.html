@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="/layout :: head">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+<header th:replace="/layout :: header"></header>
+<aside th:replace="/layout :: aside"></aside>
+
+<!-- Title Page -->
+<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(/images/bg-title-page-04.jpg);">
+    <h2 class="tit6 t-center">
+        Search for staff
+    </h2>
+</section>
+
+<section class="section-booking bg1-pattern p-t-100 p-b-110">
+    <div class="container">
+        <div class="row" >
+            <div class="col-lg-12 p-b-30" >
+                <div class="t-center">
+						<span class="tit2 t-center">
+							Luxury Garden
+						</span>
+
+                    <h3 class="tit3 t-center m-b-35 m-t-2">
+                        User Delete
+                    </h3>
+                </div>
+
+                <form class="wrap-form-booking"   method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Search -->
+                            <span class="txt9">UserName</span>
+
+                            <div class=" size12 bo2 bo-rad-10 m-t-3 m-b-23">
+                                <input name="s" id="s" class="bo-rad-10 sizefull txt10 p-l-20" type="text"  placeholder="Anh nhớ tên em nào không?"/>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div id="resultStaffList" class="col-12">
+
+
+                        </div>
+                    </div>
+
+                    <div class="wrap-btn-booking flex-c-m m-t-6">
+                        <!-- Button3 -->
+                        <button type="button" onclick="search()"  class="btn3 flex-c-m size13 txt11 trans-0-4">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+<!--            <div class="col-lg-6 p-b-30 p-t-18">-->
+<!--                <div class="wrap-pic-booking size2 bo-rad-10 hov-img-zoom m-l-r-auto">-->
+<!--                    <img src="/images/booking-03.jpg" alt="IMG-OUR">-->
+
+<!--                </div>-->
+
+<!--            </div>-->
+        </div>
+    </div>
+</section>
+<script>
+    function myconfirm() {
+        confirm("Bạn có chắc chắn muốn xóa tài khoản?");
+
+    }
+
+    function search() {
+        let keyword = document.getElementById("s").value;
+        $.ajax({
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type:'GET',
+            url:'http://localhost:6969/api/search?s='+keyword,
+            success: printResult,
+            error: printError()
+        });
+
+    }
+    function printError() {
+        document.getElementById('resultStaffList').innerHTML="<span>Something happen</span>";
+
+    }
+
+    function printResult(response) {
+
+        let tableContent =`<table>`;
+
+        for(let i =0;i<response.length;i++){
+            tableContent += getStaffRow(response[i]);
+        }
+        tableContent +=`</table>`
+        document.getElementById('resultStaffList').innerHTML=tableContent;
+    }
+    
+    function getStaffRow(staff) {
+        return`<tr>
+                <td>${staff.nickName}</td>
+                <td>${staff.price}</td>
+                <td>${staff.status.statusName}</td>
+                <td>${staff.rank.ranks}</td>
+                </tr>`;
+
+    }
+</script>
+
+<footer th:replace="/layout :: footer"></footer>
+<div th:replace="/layout :: underfooter"></div>
+</body>
+</html>
