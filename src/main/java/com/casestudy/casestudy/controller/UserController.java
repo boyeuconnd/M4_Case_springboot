@@ -63,11 +63,11 @@ public class UserController {
 
             //set role User for new account
             mv = new ModelAndView("user/create");
-            Role staffRole = roleService.getRoleById(3L);
+            Role customerRole = roleService.getRoleById(3L);
 
             //set avatar avatar link and set default role user
             newUser.setAvatar(fileName);
-            newUser.setRole(staffRole);
+            newUser.setRole(customerRole);
             if (userService.save(newUser) != null) {
                 try {
                     FileCopyUtils.copy(usersForm.getAvatar().getBytes(), new File(filepath + fileName));

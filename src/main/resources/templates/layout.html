@@ -169,6 +169,12 @@
                         Join Us
                     </a>
                 </li>
+                <li sec:authorize="hasRole('ADMIN')" class="t-center m-b-13 m-t-20">
+                    <a href="/admin" class="txt19 m-l-r-auto">
+                        Admin Dashboard
+                    </a>
+
+                </li>
                 <li sec:authorize="isAuthenticated()" >
                     <a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
                         Log out
