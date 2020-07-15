@@ -1,4 +1,4 @@
-package com.casestudy.casestudy.controller.blogs;
+package com.casestudy.casestudy.controller.api;
 
 
 import com.casestudy.casestudy.models.Users;
