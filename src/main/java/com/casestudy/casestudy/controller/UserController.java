@@ -9,6 +9,7 @@ import com.casestudy.casestudy.service.RoleService;
 import com.casestudy.casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,9 @@ public class UserController {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @GetMapping("create")
@@ -85,7 +89,7 @@ public class UserController {
         users.setLastName(usersForm.getLastName());
         users.setUserName(usersForm.getUserName());
         users.setEmail(usersForm.getEmail());
-        users.setPassword(usersForm.getPassword());
+        users.setPassword(passwordEncoder.encode(usersForm.getPassword()));
         users.setAvatar(null);
         return users;
     }
@@ -132,6 +136,34 @@ public class UserController {
         editUser.setLastName(usersForm.getLastName());
         editUser.setEmail(usersForm.getEmail());
         return editUser;
+    }
+
+    @GetMapping("delete")
+    public ModelAndView showdeleteForm(Principal principal){
+        ModelAndView mv = null;
+        if (principal==null){
+            mv = new ModelAndView("redirect:/login");
+            return mv;
+        }
+        Users deleteUser = userService.findUsersByUserName(principal.getName());
+        if(deleteUser!=null){
+            mv = new ModelAndView("user/delete");
+            mv.addObject("deleteUser",deleteUser);
+        }else {
+            mv = new ModelAndView("exception/403");
+        }
+        return mv;
+    }
+
+    @PostMapping("delete")
+    public String deleteAccount(Principal principal){
+        Users deleteUser = userService.findUsersByUserName(principal.getName());
+        if(deleteUser!=null){
+            userService.delete(deleteUser.getId());
+            return "redirect:/";
+        }else {
+            return "redirect:/403";
+        }
     }
 
 }

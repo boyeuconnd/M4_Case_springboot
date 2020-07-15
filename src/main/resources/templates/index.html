@@ -171,7 +171,13 @@
 					<li sec:authorize="isAuthenticated()" >
 						<a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 								Log out
-							</a>
+						</a>
+					</li>
+					<li sec:authorize="isAuthenticated()">
+						<a href="/user/delete" class="txt4">
+							Delete Account
+							<i class="fa fa-trash m-l-10 m-t-20" aria-hidden="true"></i>
+						</a>
 					</li>
 				</ul>
 
@@ -407,7 +413,7 @@
 
 								<!-- Button2 -->
 								<a href="/staff/" class="btn2 flex-c-m txt5 ab-c-m size5">
-									Peaches
+									Coconut
 								</a>
 							</div>
 						</div>
