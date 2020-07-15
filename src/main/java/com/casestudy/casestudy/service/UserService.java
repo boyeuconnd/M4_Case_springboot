@@ -24,4 +24,6 @@ public interface UserService {
     Page<Users> findAllByUserNameContaining(String value,Pageable pageable);
 
     Iterable<Users> findAllByRoleEqualsAndNickNameContaining(Role role,String nickname);
+
+    Long countAll();
 }

@@ -74,6 +74,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findAllByRoleEqualsAndNickNameContaining(role,nickname);
     }
 
+    @Override
+    public Long countAll() {
+        return userRepository.count();
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

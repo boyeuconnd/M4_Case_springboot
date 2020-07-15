@@ -21,13 +21,18 @@ public class AdminController {
     @Autowired
     UserService userService;
 
+    @ModelAttribute("totalAccount")
+    public Long getTotalAccount(){
+        return userService.countAll();
+    }
+
     @GetMapping("")
     public String getAdminPage(){
         return "admin/dashboard";
     }
 
     @GetMapping("/users")
-    public ModelAndView getListUsers(@RequestParam("keyword") Optional<String> keyword, @PageableDefault(size = 5) Pageable pageable){
+    public ModelAndView getListUsers(@RequestParam("keyword") Optional<String> keyword, @PageableDefault(size = 10) Pageable pageable){
         ModelAndView mv = new ModelAndView("admin/list-users");
         Page<Users> users ;
 

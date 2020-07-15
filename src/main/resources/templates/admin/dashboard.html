@@ -13,16 +13,7 @@
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
-    <!--
-    =========================================================
-    * ArchitectUI HTML Theme Dashboard - v1.0.0
-    =========================================================
-    * Product Page: https://dashboardpack.com
-    * Copyright 2019 DashboardPack (https://dashboardpack.com)
-    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
-    =========================================================
-    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    -->
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 
     <link href="/dashboard/main.css" rel="stylesheet">
@@ -628,7 +619,7 @@
                         </li>
                         <li class="app-sidebar__heading">User</li>
                         <li>
-                            <a href="/admin/users">
+                            <a href="/admin/users?page=0">
                                 Users List
                             </a>
                         </li>
@@ -798,11 +789,11 @@
                         <div class="card mb-3 widget-content bg-grow-early">
                             <div class="widget-content-wrapper text-white">
                                 <div class="widget-content-left">
-                                    <div class="widget-heading">Customers</div>
-                                    <div class="widget-subheading">Accounts Increase</div>
+                                    <div class="widget-heading">Accounts</div>
+                                    <div class="widget-subheading">Total Accounts on system</div>
                                 </div>
                                 <div class="widget-content-right">
-                                    <div class="widget-numbers text-white"><span>67%</span></div>
+                                    <div class="widget-numbers text-white"><span th:text="${totalAccount}"></span></div>
                                 </div>
                             </div>
                         </div>
