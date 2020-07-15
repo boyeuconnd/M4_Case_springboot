@@ -1,8 +1,10 @@
 package com.casestudy.casestudy.controller.blogs;
 
 
+import com.casestudy.casestudy.models.Users;
 import com.casestudy.casestudy.models.blogs.Comment;
 import com.casestudy.casestudy.models.blogs.Post;
+import com.casestudy.casestudy.service.UserService;
 import com.casestudy.casestudy.service.blogs.CommentService;
 import com.casestudy.casestudy.service.blogs.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jws.Oneway;
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("api/blog")
+@RequestMapping("/comment")
 public class CommentControllerAPI {
 
     @Autowired
@@ -22,16 +26,22 @@ public class CommentControllerAPI {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/getAllComment/{id}")
-    public Iterable<Comment> getAllComment(@PathVariable Long id){
-        Iterable<Comment> list = commentService.findAllByPost(id);
-        return list;
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("{id}")
+    public List<Comment> getAllComment(@PathVariable Long id){
+        Post post= postService.findById(id);
+        List<Comment> comments = commentService.findAllByPost(post);
+        return comments;
     }
 
 
-    @PostMapping("/saveComment/{id}")
-    public void saveComment(@PathVariable Long id ,@RequestBody Comment comment) {
-       Post post = postService.findById(id);
+    @PostMapping("/{id}")
+    public void saveComment(@PathVariable Long id , @RequestBody Comment comment, Principal principal) {
+        Users currentUser = userService.findUsersByUserName(principal.getName());
+        comment.setUsers(currentUser);
+        Post post = postService.findById(id);
         comment.setPost(post);
         commentService.save(comment);
     }

@@ -41,6 +41,8 @@
 
 				<span class="txt29" th:text="${blog.title}">
 				</span>
+				<input id="blodId" th:value="${blog.id}" type="hidden">
+
 			</div>
 		</div>
 
@@ -97,15 +99,14 @@
 						</div>
 
 						<div>
-							<textarea id="content"></textarea>
-							<button onclick="addComment()">Comment</button>
+							<textarea id="content" class="bo-rad-10 size29 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-40" placeholder="Comment..."></textarea>
+							<button onclick="addComment()"  class="btn3 flex-c-m size31 txt11 trans-0-4">Comment</button>
 						</div>
 
-						<<script>
+						<script>
 						function addComment() {
 							let content = document.getElementById("content").value;
-							let id = document.getElementById("blogId").value;
-
+							let id = document.getElementById("blodId").value;
 							let comment = {
 								"content": content,
 								// "blog":{
@@ -117,51 +118,60 @@
 									'Accept': 'application/json',
 									'Content-Type': 'application/json'
 								},
-								url: 'http://localhost:6969/api/blog/saveComment/' + id,
+								url: 'http://localhost:6969/comment/' + id,
 								type: 'POST',
 								data: JSON.stringify(comment),
-								success: successHandler,
-								error: fail
+								// success: successHandler,
+								// error: fail
 							});
 						}
 
 						function successHandler() {
 							let id = document.getElementById("blogId").value;
 							$.ajax({
-								url: 'http://localhost:6969/api/blog/getAllComment/' + id,
+								url: 'http://localhost:6969/blog/' + id,
 								type: 'GET',
 
-								success: showCommentList,
+								// success: showCommentList,
 							});
 
 						}
 
 						function fail() {
-							aler("comment fail!!! try again");
+							alert("comment fail!!! try again");
 						}
 
-						function showCommentList(response) {
-							//show list comment here
-							let tableContent =`<thead>
-							<tr>
-								   <th>comment</th>
-							</tr>
-							</thead>
-							<tbody>`;
-							for (let i = 0; i < response.length; i++) {
-								tableContent += getCommentRow(response[i]);
-							}
-							tableContent += `</tbody>`;
-							document.getElementById('comments').innerHTML = tableContent;
-							document.getElementById('comments').innerHTML=" ";
-						}
+						// function showCommentList(response) {
+						// 	//show list comment here
+						// 	let tableContent =`<thead>
+						// 	<tr>
+						// 		   <th>comment</th>
+						// 	</tr>
+						// 	</thead>
+						// 	<tbody>`;
+						// 	for (let i = 0; i < response.length; i++) {
+						// 		tableContent += getCommentRow(response[i]);
+						// 	}
+						// 	tableContent += `</tbody>`;
+						// 	document.getElementById('comment').innerHTML = tableContent;
+						//
+						// }
 
-						function getCommentRow(comment) {
-							return `<tr>
-                   			 <td > ${comment.content}</td>
-               		 		</tr>`;
-						}
+						// function getCommentRow(comment) {
+						// 	return `<tr>
+                   		// 	 <td > ${comment.content}</td>
+               		 // 		</tr>`;
+						// }
 						</script>
+						<h4>Bình Luận</h4>
+						<div style="border: solid 1px #95999c ;padding: 20px ; margin: 15px">
+							<div th:each="comment : ${comments}" >
+								<b th:text="${comment.users.userName} + ' : '"></b>
+								<span th:text="${comment.content}"></span>
+								<hr>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
