@@ -1,16 +1,16 @@
 package com.casestudy.casestudy.controller;
 
 import com.casestudy.casestudy.models.Users;
+import com.casestudy.casestudy.models.blogs.Post;
 import com.casestudy.casestudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -42,5 +42,29 @@ public class AdminController {
         }
         mv.addObject("users",users);
         return mv;
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView getFormEdit(@PathVariable Long id){
+        Users user = userService.findOne(id);
+        ModelAndView mv = new ModelAndView("/admin/edit-user");
+        mv.addObject("user",user);
+        return mv;
+    }
+
+    @PostMapping("/edit/{id}")
+    public ModelAndView edit(@ModelAttribute Users user){
+        userService.save(user);
+        ModelAndView modelAndView = new ModelAndView("/admin/edit-user");
+        modelAndView.addObject("user",new Users());
+        modelAndView.addObject("mess","Update user successfully");
+        return modelAndView;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@ModelAttribute Users users, @PathVariable Long id, RedirectAttributes redirect){
+        redirect.addFlashAttribute("mess","Delete user successfully");
+        userService.delete(id);
+        return "redirect:/admin/users";
     }
 }
