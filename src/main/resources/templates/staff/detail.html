@@ -22,6 +22,7 @@
                             <h3 class="tit3 t-center m-b-35 m-t-5" th:text="*{rank.ranks}">
                             </h3>
                             <div class="txt12 p-b-10" th:text="'Nick Name: '+*{nickName}"></div>
+                            <div sec:authorize="hasRole('ADMIN')" class="txt12 p-b-10" th:text="'Full Name: '+*{firstName}+' '+*{lastName}"></div>
                             <div class="txt12 p-b-10" th:text="'Status: '+*{status.statusName}"></div>
                             <div  class="txt12 p-b-10" th:text="'Price: $'+*{price}"></div>
                             <input id="staffPrice" hidden type="number" th:value="*{price}">

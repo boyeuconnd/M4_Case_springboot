@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -27,8 +28,10 @@ public class AdminController {
     }
 
     @GetMapping("")
-    public String getAdminPage(){
-        return "admin/dashboard";
+    public ModelAndView getAdminPage(Principal principal){
+        ModelAndView mv = new ModelAndView("admin/dashboard");
+        mv.addObject("admin",userService.findUsersByUserName(principal.getName()));
+        return mv;
     }
 
     @GetMapping("/users")
