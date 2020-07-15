@@ -99,10 +99,21 @@ public class UserController {
 
     @GetMapping("edit")
     public ModelAndView showEditForm(Principal principal){
+
+        ModelAndView mv = null;
+        if(isAnonymous(principal)){
+            mv = new ModelAndView("redirect:/login");
+            return mv;
+        }
+
         Users editUser = userService.findUsersByUserName(principal.getName());
-        ModelAndView mv = new ModelAndView("user/update");
+        mv = new ModelAndView("user/update");
         mv.addObject("editUser",editUser);
         return mv;
+    }
+
+    private boolean isAnonymous(Principal principal) {
+        return principal == null;
     }
 
     @PostMapping("edit/{id}")
@@ -144,7 +155,7 @@ public class UserController {
     @GetMapping("delete")
     public ModelAndView showdeleteForm(Principal principal){
         ModelAndView mv = null;
-        if (principal==null){
+        if (isAnonymous(principal)){
             mv = new ModelAndView("redirect:/login");
             return mv;
         }
