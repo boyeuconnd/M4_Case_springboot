@@ -65,7 +65,7 @@ public class StaffController {
         staff.setRank(rankService.findById(rank));
         staff.setStatus(statusService.findById(status));
 
-
+        //Set role form customer to staff role
         Role staffRole = roleService.getRoleById(2L);
         staff.setRole(staffRole);
 

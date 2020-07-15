@@ -168,6 +168,12 @@
 							Join Us
 						</a>
 					</li>
+					<li sec:authorize="hasRole('ADMIN')" class="t-center m-b-13 m-t-20">
+						<a href="/admin" class="txt19 m-l-r-auto">
+							Admin Dashboard
+						</a>
+
+					</li>
 					<li sec:authorize="isAuthenticated()" >
 						<a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 								Log out
@@ -400,7 +406,7 @@
 								<img src="/images/our-menu-01.jpg" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="/staff/" class="btn2 flex-c-m txt5 ab-c-m size4">
+								<a href="/staff" class="btn2 flex-c-m txt5 ab-c-m size4">
 									Grapefruit
 								</a>
 							</div>
@@ -412,7 +418,7 @@
 								<img src="/images/our-menu-05.jpg" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="/staff/" class="btn2 flex-c-m txt5 ab-c-m size5">
+								<a href="/staff" class="btn2 flex-c-m txt5 ab-c-m size5">
 									Coconut
 								</a>
 							</div>
@@ -440,7 +446,7 @@
 								<img src="/images/our-menu-08.jpg" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="/staff/" class="btn2 flex-c-m txt5 ab-c-m size7">
+								<a href="/staff" class="btn2 flex-c-m txt5 ab-c-m size7">
 									Orange
 								</a>
 							</div>
@@ -452,7 +458,7 @@
 								<img src="/images/our-menu-10.jpg" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="/staff/" class="btn2 flex-c-m txt5 ab-c-m size8">
+								<a href="/staff" class="btn2 flex-c-m txt5 ab-c-m size8">
 									Lemon
 								</a>
 							</div>
@@ -464,7 +470,7 @@
 								<img src="/images/our-menu-16.jpg" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="/staff/" class="btn2 flex-c-m txt5 ab-c-m size9">
+								<a href="/staff" class="btn2 flex-c-m txt5 ab-c-m size9">
 									Dessert
 								</a>
 							</div>

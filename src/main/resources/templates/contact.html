@@ -170,6 +170,12 @@
 							Join Us
 						</a>
 					</li>
+					<li sec:authorize="hasRole('ADMIN')" class="t-center m-b-13 m-t-20">
+						<a href="/admin" class="txt19 m-l-r-auto">
+							Admin Dashboard
+						</a>
+
+					</li>
 					<li sec:authorize="isAuthenticated()" >
 						<a href="/logout" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 							Log out
@@ -196,7 +202,7 @@
 		<!-- Map -->
 		<div class="container">
 			<div class="map bo8 bo-rad-10 of-hidden">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1861.9773047393674!2d105.7684141423326!3d21.034502114740476!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b9444c676b%3A0xe713200541b7456d!2sCodeGym!5e0!3m2!1svi!2s!4v1594536425325!5m2!1svi!2s" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14930.680936824005!2d106.78627316552249!3d20.6829909705241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a6c8aa9069599%3A0x895181d45d8b5e7a!2zS2jDoWNoIFPhuqFuIFjDonkgROG7sW5n!5e0!3m2!1svi!2s!4v1594797226392!5m2!1svi!2s" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 <!--				<div class="contact-map size37" id="google_map" data-map-x="40.704644" data-map-y="-74.011987" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>-->
 			</div>
 		</div>
