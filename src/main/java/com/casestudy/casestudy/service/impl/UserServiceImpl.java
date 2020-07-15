@@ -69,6 +69,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findAllByUserNameContaining(value,pageable);
     }
 
+    @Override
+    public Iterable<Users> findAllByRoleEqualsAndNickNameContaining(Role role, String nickname) {
+        return userRepository.findAllByRoleEqualsAndNickNameContaining(role,nickname);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
