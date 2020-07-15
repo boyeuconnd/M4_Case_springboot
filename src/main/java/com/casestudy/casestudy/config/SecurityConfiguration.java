@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -29,12 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password("user").roles("USER")
-//                .and()
-//                .withUser("staff").password("staff").roles("STAFF")
-//                .and()
-//                .withUser("admin").password("admin").roles("ADMIN");
         auth.userDetailsService((UserDetailsService) userService)
                 .passwordEncoder(passwordEncoder());
     }
@@ -45,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/","/blog","/staff","/gallery","/user/**")
                 .permitAll()
                 .and().authorizeRequests().antMatchers("/staff/promote").hasRole("CUSTOMER")
-                .and().authorizeRequests().antMatchers("/blog/**","/staff/view/**")
+                .and().authorizeRequests().antMatchers("/user/delete","/blog/**","/staff/view/**")
                 .hasAnyRole("CUSTOMER","STAFF","ADMIN")
                 .and()
                 .authorizeRequests().antMatchers("/staff/**")

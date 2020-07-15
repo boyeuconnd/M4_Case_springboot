@@ -138,4 +138,32 @@ public class UserController {
         return editUser;
     }
 
+    @GetMapping("delete")
+    public ModelAndView showdeleteForm(Principal principal){
+        ModelAndView mv = null;
+        if (principal==null){
+            mv = new ModelAndView("redirect:/login");
+            return mv;
+        }
+        Users deleteUser = userService.findUsersByUserName(principal.getName());
+        if(deleteUser!=null){
+            mv = new ModelAndView("user/delete");
+            mv.addObject("deleteUser",deleteUser);
+        }else {
+            mv = new ModelAndView("exception/403");
+        }
+        return mv;
+    }
+
+    @PostMapping("delete")
+    public String deleteAccount(Principal principal){
+        Users deleteUser = userService.findUsersByUserName(principal.getName());
+        if(deleteUser!=null){
+            userService.delete(deleteUser.getId());
+            return "redirect:/";
+        }else {
+            return "redirect:/403";
+        }
+    }
+
 }
