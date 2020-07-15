@@ -20,4 +20,6 @@ public interface UserService {
     Page<Users> findAllByRoleEquals(Role role, Pageable pageable);
 
     Users findUsersByUserName(String username);
+
+    Page<Users> findAllByUserNameContaining(String value,Pageable pageable);
 }
