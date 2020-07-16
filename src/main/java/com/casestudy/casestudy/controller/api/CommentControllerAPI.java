@@ -8,16 +8,12 @@ import com.casestudy.casestudy.service.UserService;
 import com.casestudy.casestudy.service.blogs.CommentService;
 import com.casestudy.casestudy.service.blogs.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.jws.Oneway;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
-@Controller
-@RequestMapping("/comment")
+@RestController
+@RequestMapping("/api/comment")
 public class CommentControllerAPI {
 
     @Autowired
@@ -29,7 +25,7 @@ public class CommentControllerAPI {
     @Autowired
     private UserService userService;
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public List<Comment> getAllComment(@PathVariable Long id){
         Post post= postService.findById(id);
         List<Comment> comments = commentService.findAllByPost(post);
