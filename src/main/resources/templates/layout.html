@@ -160,6 +160,11 @@
                         Account Info Manager
                     </a>
                 </li>
+                <li sec:authorize="hasAnyRole('STAFF','ADMIN')" class="t-center m-b-13 m-t-20">
+                    <a th:href="@{/staff/update}" class=" txt19  m-l-r-auto">
+                        Staff Info Manager
+                    </a>
+                </li>
                 <li sec:authorize="hasAnyRole('CUSTOMER','ADMIN')" class="t-center m-b-13 m-t-20">
                     <a href="#" class="txt19 m-l-r-auto">
                         History Transactions
