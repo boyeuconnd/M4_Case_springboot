@@ -114,7 +114,28 @@ public class StaffController {
     }
 
     @GetMapping("update")
-    public String showEditForm(Principal principal){
-        return "staff/update";
+    public ModelAndView showEditForm(Principal principal){
+        Users editStaff = userService.findUsersByUserName(principal.getName());
+        ModelAndView mv = null;
+        if(editStaff.getRole().getId()==3L){
+            mv = new ModelAndView("redirect:/403");
+            return mv;
+        }
+        mv= new ModelAndView("staff/update","editStaff",editStaff);
+        return mv;
+    }
+
+    @PostMapping("update")
+    public ModelAndView updateStaffStatus(@RequestParam("status") Long statusId,
+                                          @RequestParam("id") Long id,
+                                          @RequestParam("nickName")String nickname){
+        ModelAndView mv = new ModelAndView("staff/update");
+        Users updateStaff = userService.findOne(id);
+        updateStaff.setStatus(statusService.findById(statusId));
+        updateStaff.setNickName(nickname);
+        userService.save(updateStaff);
+        mv.addObject("mess","Update Successfully");
+        mv.addObject("editStaff",updateStaff);
+        return mv;
     }
 }
