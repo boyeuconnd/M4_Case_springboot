@@ -1,6 +1,7 @@
 package com.casestudy.casestudy.service.impl;
 
 
+import com.casestudy.casestudy.models.Rank;
 import com.casestudy.casestudy.models.Role;
 import com.casestudy.casestudy.models.Users;
 import com.casestudy.casestudy.repositories.UserRepository;
@@ -72,6 +73,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Iterable<Users> findAllByRoleEqualsAndNickNameContaining(Role role, String nickname) {
         return userRepository.findAllByRoleEqualsAndNickNameContaining(role,nickname);
+    }
+
+    @Override
+    public Iterable<Users> findAllByRoleAndRank(Role role, Rank rank) {
+        return userRepository.findAllByRoleAndRank(role,rank);
     }
 
     @Override

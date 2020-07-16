@@ -2,6 +2,7 @@ package com.casestudy.casestudy.service;
 
 
 
+import com.casestudy.casestudy.models.Rank;
 import com.casestudy.casestudy.models.Role;
 import com.casestudy.casestudy.models.Users;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,8 @@ public interface UserService {
     Page<Users> findAllByUserNameContaining(String value,Pageable pageable);
 
     Iterable<Users> findAllByRoleEqualsAndNickNameContaining(Role role,String nickname);
+
+    Iterable<Users> findAllByRoleAndRank(Role role, Rank rank);
 
     Long countAll();
 }

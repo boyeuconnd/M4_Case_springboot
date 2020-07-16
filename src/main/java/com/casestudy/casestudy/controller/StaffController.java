@@ -43,6 +43,26 @@ public class StaffController {
         return statusService.showStatus() ;
     }
 
+    @ModelAttribute("grapefruit")
+    public Iterable<Users> grapefruitStaff(){
+        Role staffRole = roleService.getRoleById(2L);
+        Rank grapefruit = rankService.findById(4L);
+        return userService.findAllByRoleAndRank(staffRole,grapefruit);
+    }
+
+    @ModelAttribute("coconut")
+    public Iterable<Users> coconutStaff(){
+        Role staffRole = roleService.getRoleById(2L);
+        Rank coconut = rankService.findById(5L);
+        return userService.findAllByRoleAndRank(staffRole,coconut);
+    }
+
+    @ModelAttribute("orange")
+    public Iterable<Users> orangeStaff(){
+        Role staffRole = roleService.getRoleById(2L);
+        Rank orange = rankService.findById(6L);
+        return userService.findAllByRoleAndRank(staffRole,orange);
+    }
     @GetMapping("promote")
     public ModelAndView showPromoteForm(Principal principal){
         Users promoteUser = userService.findUsersByUserName(principal.getName());
@@ -81,12 +101,8 @@ public class StaffController {
     }
 
     @GetMapping("")
-    public ModelAndView showStaffList(Pageable pageable){
-        Page<Users> staffList;
-        ModelAndView mv = new ModelAndView("menu");
-        staffList = userService.findAllByRoleEquals(roleService.getRoleById(2L),pageable);
-        mv.addObject("staffList",staffList);
-        return mv;
+    public String showStaffList(){
+        return "menu";
     }
 
     @GetMapping("view/{id}")
@@ -97,8 +113,8 @@ public class StaffController {
         return mv;
     }
 
-    @GetMapping("{id}/edit")
-    public String showEditForm(@PathVariable Long id){
+    @GetMapping("update")
+    public String showEditForm(Principal principal){
         return "staff/update";
     }
 }

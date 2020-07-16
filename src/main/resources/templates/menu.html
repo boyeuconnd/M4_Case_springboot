@@ -586,13 +586,13 @@
 		<div class="container" >
 			<div class="row p-t-108 p-b-70">
 					<!-- Block3 -->
-					<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="staff:${staffList}">
+					<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="staff:${grapefruit}">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28 ">
 							<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${staff.avatar}" alt="IMG-MENU"></a>
 						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3" th:text="${staff.nickName}">
+							<a th:href="@{/staff/view/__${staff.id}__}" class="txt21 m-b-3" th:text="${staff.nickName}">
 							</a>
 
 							<span class="txt23">
@@ -619,137 +619,62 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<div class="container" >
 			<div class="row p-t-108 p-b-70">
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="/images/dinner-01.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Maecenas tristique
-							</a>
-
-							<span class="txt23">
-								Aenean pharetra tortor dui in pellentesque
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
+				<!-- Block3 -->
+				<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="staff:${coconut}">
+					<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28 ">
+						<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${staff.avatar}" alt="IMG-MENU"></a>
 					</div>
 
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="/images/dinner-03.jpg" alt="IMG-MENU"></a>
-						</div>
+					<div class="text-blo3 size21 flex-col-l-m">
+						<a th:href="@{/staff/view/__${staff.id}__}" class="txt21 m-b-3" th:text="${staff.nickName}">
+						</a>
 
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Aenean condimentum ante erat
+						<span class="txt23">
+								Sáng nhớ tôi thì tối nhớ sang
 							</span>
 
-							<span class="txt22 m-t-20">
-								$45.09
+						<span class="txt22 m-t-20" th:text="${'$'+staff.price}">
 							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="/images/dinner-05.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Suspendisse eu
-							</a>
-
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
 					</div>
 				</div>
 
-				<div class="col-md-8 col-lg-6 m-l-r-auto">
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="/images/dinner-02.jpg" alt="IMG-MENU"></a>
-						</div>
+			</div>
+		</div>
+	</section>
 
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Cras maximus
-							</a>
+	<!-- Orange -->
+	<section class="section-coconut bgwhite">
+		<div class="header-coconut parallax0 parallax100" style="background-image: url(/images/header-menu-03.jpg);">
+			<div class="bg1-overlay t-center p-t-170 p-b-165">
+				<h2 class="tit4 t-center">
+					Orange
+				</h2>
+			</div>
+		</div>
 
-							<span class="txt23">
-								Proin lacinia nisl ut ultricies posuere nulla
-							</span>
-
-							<span class="txt22 m-t-20">
-								$29.79
-							</span>
-						</div>
+		<div class="container" >
+			<div class="row p-t-108 p-b-70">
+				<!-- Block3 -->
+				<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="staff:${orange}">
+					<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28 ">
+						<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${staff.avatar}" alt="IMG-MENU"></a>
 					</div>
 
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="/images/dinner-04.jpg" alt="IMG-MENU"></a>
-						</div>
+					<div class="text-blo3 size21 flex-col-l-m">
+						<a th:href="@{/staff/view/__${staff.id}__}" class="txt21 m-b-3" th:text="${staff.nickName}">
+						</a>
 
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Pine nut sbrisalona
-							</a>
-
-							<span class="txt23">
-								Sed fermentum eros vitae eros
+						<span class="txt23">
+								Sáng nhớ tôi thì tối nhớ sang
 							</span>
 
-							<span class="txt22 m-t-20">
-								$45.09
+						<span class="txt22 m-t-20" th:text="${'$'+staff.price}">
 							</span>
-						</div>
-					</div>
-
-					<!-- Block3 -->
-					<div class="blo3 flex-w flex-col-l-sm m-b-30">
-						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-							<a href="#"><img src="/images/dinner-06.jpg" alt="IMG-MENU"></a>
-						</div>
-
-						<div class="text-blo3 size21 flex-col-l-m">
-							<a href="#" class="txt21 m-b-3">
-								Tempor malesuada
-							</a>
-
-							<span class="txt23">
-								Duis massa nibh porttitor nec imperdiet eget
-							</span>
-
-							<span class="txt22 m-t-20">
-								$12.75
-							</span>
-						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</section>
