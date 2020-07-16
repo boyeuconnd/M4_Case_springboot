@@ -110,7 +110,7 @@ public class PostController {
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/blogs/update");
         modelAndView.addObject("post",new Post());
-        modelAndView.addObject("message","Update post successfully");
+        modelAndView.addObject("mess","Update post successfully");
         return modelAndView;
     }
 
