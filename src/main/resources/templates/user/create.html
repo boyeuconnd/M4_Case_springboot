@@ -74,7 +74,7 @@
 
                     <div class="wrap-btn-booking flex-c-m m-t-6">
                         <!-- Button3 -->
-                        <button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+                        <button onclick="alertAdult()" type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
                             Register
                         </button>
                     </div>
@@ -100,6 +100,12 @@
         </div>
     </div>
 </section>
+<script>
+    function alertAdult() {
+        confirm("Hãy chắc chắn bạn đủ tuổi đi tù.")
+
+    }
+</script>
 
 <footer th:replace="/layout :: footer"></footer>
 <div th:replace="/layout :: underfooter"></div>
