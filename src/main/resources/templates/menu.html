@@ -160,6 +160,11 @@
 							Account Info Manager
 						</a>
 					</li>
+					<li sec:authorize="hasAnyRole('STAFF','ADMIN')" class="t-center m-b-13 m-t-20">
+						<a th:href="@{/staff/update}" class=" txt19  m-l-r-auto">
+							Staff Info Manager
+						</a>
+					</li>
 					<li sec:authorize="hasAnyRole('CUSTOMER','ADMIN')" class="t-center m-b-13 m-t-20">
 						<a href="#" class="txt19 m-l-r-auto">
 							History Transactions
@@ -586,20 +591,20 @@
 		<div class="container" >
 			<div class="row p-t-108 p-b-70">
 					<!-- Block3 -->
-					<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="staff:${grapefruit}">
+					<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="s1:${grapefruit}">
 						<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28 ">
-							<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${staff.avatar}" alt="IMG-MENU"></a>
+							<a th:href="@{/staff/view/__${s1.id}__}"><img th:src="${'/'+s1.avatar}" alt="IMG-MENU"></a>
 						</div>
 
 						<div class="text-blo3 size21 flex-col-l-m">
-							<a th:href="@{/staff/view/__${staff.id}__}" class="txt21 m-b-3" th:text="${staff.nickName}">
+							<a th:href="@{/staff/view/__${s1.id}__}" class="txt21 m-b-3" th:text="${s1.nickName}">
 							</a>
 
 							<span class="txt23">
-								Sáng nhớ tôi thì tối nhớ sang
+								Luxury Garden - Heaven place
 							</span>
 
-							<span class="txt22 m-t-20" th:text="${'$'+staff.price}">
+							<span class="txt22 m-t-20" th:text="${'$'+s1.price}">
 							</span>
 						</div>
 					</div>
@@ -624,7 +629,7 @@
 				<!-- Block3 -->
 				<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="staff:${coconut}">
 					<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28 ">
-						<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${staff.avatar}" alt="IMG-MENU"></a>
+						<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${'/'+staff.avatar}" alt="IMG-MENU"></a>
 					</div>
 
 					<div class="text-blo3 size21 flex-col-l-m">
@@ -632,7 +637,7 @@
 						</a>
 
 						<span class="txt23">
-								Sáng nhớ tôi thì tối nhớ sang
+								Luxury Garden - Heaven place
 							</span>
 
 						<span class="txt22 m-t-20" th:text="${'$'+staff.price}">
@@ -659,7 +664,7 @@
 				<!-- Block3 -->
 				<div class="col-lg-6 col-md-12  blo3 flex-w flex-col-l-sm m-b-30 p-l-50" th:each="staff:${orange}">
 					<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28 ">
-						<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${staff.avatar}" alt="IMG-MENU"></a>
+						<a th:href="@{/staff/view/__${staff.id}__}"><img th:src="${'/'+staff.avatar}" alt="IMG-MENU"></a>
 					</div>
 
 					<div class="text-blo3 size21 flex-col-l-m">
@@ -667,7 +672,7 @@
 						</a>
 
 						<span class="txt23">
-								Sáng nhớ tôi thì tối nhớ sang
+								Luxury Garden - Heaven place
 							</span>
 
 						<span class="txt22 m-t-20" th:text="${'$'+staff.price}">
