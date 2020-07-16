@@ -91,20 +91,22 @@ public class PostController {
     }
 
     @GetMapping("{id}/update")
-    public ModelAndView edit(@PathVariable Long id){
+    public ModelAndView edit(@PathVariable Long id,Principal principal){
         Post post = postService.findById(id);
-        if(post != null){
+        if(principal.getName().equals(post.getUsers().getUserName())){
             ModelAndView modelAndView = new ModelAndView("/blogs/update");
             modelAndView.addObject("post",post);
             return modelAndView;
         }else {
-            ModelAndView modelAndView = new ModelAndView("blogs/404");
+            ModelAndView modelAndView = new ModelAndView("exception/403");
             return modelAndView;
         }
     }
 
     @PostMapping("{id}/update")
-    public ModelAndView edit(@ModelAttribute Post post){
+    public ModelAndView edit(@ModelAttribute Post post,Principal principal){
+        Users currentUser = userService.findUsersByUserName(principal.getName());
+        post.setUsers(currentUser);
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/blogs/update");
         modelAndView.addObject("post",new Post());
