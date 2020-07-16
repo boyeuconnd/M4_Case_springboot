@@ -43,6 +43,26 @@ public class StaffController {
         return statusService.showStatus() ;
     }
 
+    @ModelAttribute("grapefruit")
+    public Iterable<Users> grapefruitStaff(){
+        Role staffRole = roleService.getRoleById(2L);
+        Rank grapefruit = rankService.findById(4L);
+        return userService.findAllByRoleAndRank(staffRole,grapefruit);
+    }
+
+    @ModelAttribute("coconut")
+    public Iterable<Users> coconutStaff(){
+        Role staffRole = roleService.getRoleById(2L);
+        Rank coconut = rankService.findById(5L);
+        return userService.findAllByRoleAndRank(staffRole,coconut);
+    }
+
+    @ModelAttribute("orange")
+    public Iterable<Users> orangeStaff(){
+        Role staffRole = roleService.getRoleById(2L);
+        Rank orange = rankService.findById(6L);
+        return userService.findAllByRoleAndRank(staffRole,orange);
+    }
     @GetMapping("promote")
     public ModelAndView showPromoteForm(Principal principal){
         Users promoteUser = userService.findUsersByUserName(principal.getName());
@@ -81,12 +101,8 @@ public class StaffController {
     }
 
     @GetMapping("")
-    public ModelAndView showStaffList(Pageable pageable){
-        Page<Users> staffList;
-        ModelAndView mv = new ModelAndView("menu");
-        staffList = userService.findAllByRoleEquals(roleService.getRoleById(2L),pageable);
-        mv.addObject("staffList",staffList);
-        return mv;
+    public String showStaffList(){
+        return "menu";
     }
 
     @GetMapping("view/{id}")
@@ -97,8 +113,29 @@ public class StaffController {
         return mv;
     }
 
-    @GetMapping("{id}/edit")
-    public String showEditForm(@PathVariable Long id){
-        return "staff/update";
+    @GetMapping("update")
+    public ModelAndView showEditForm(Principal principal){
+        Users editStaff = userService.findUsersByUserName(principal.getName());
+        ModelAndView mv = null;
+        if(editStaff.getRole().getId()==3L){
+            mv = new ModelAndView("redirect:/403");
+            return mv;
+        }
+        mv= new ModelAndView("staff/update","editStaff",editStaff);
+        return mv;
+    }
+
+    @PostMapping("update")
+    public ModelAndView updateStaffStatus(@RequestParam("status") Long statusId,
+                                          @RequestParam("id") Long id,
+                                          @RequestParam("nickName")String nickname){
+        ModelAndView mv = new ModelAndView("staff/update");
+        Users updateStaff = userService.findOne(id);
+        updateStaff.setStatus(statusService.findById(statusId));
+        updateStaff.setNickName(nickname);
+        userService.save(updateStaff);
+        mv.addObject("mess","Update Successfully");
+        mv.addObject("editStaff",updateStaff);
+        return mv;
     }
 }
